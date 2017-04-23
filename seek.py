@@ -66,7 +66,7 @@ def save_module_data(filename = "modules.json"):
 		module_info = module_data[module_name]
 		target_name = module_info["target"]
 		target_url = module_data[target_name]["url"]
-		url_module_data[module_name] = (module_info["url"], target_url, module_info["data"])
+		url_module_data[module_name] = {"url": module_info["url"], "target": target_url, "data": module_info["data"]}
 
 	with open(filename, 'w') as fp:
 		json.dump(url_module_data, fp)
