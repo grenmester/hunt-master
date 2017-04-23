@@ -12,13 +12,11 @@ QR = seek.QRModule('At-the-info-center', ('<p> As you arrive at the information 
                            ' you notice a QR code...</p>'),'What-the-QR-code-says','content', DOMAIN)
 picture_info = seek.ContentModule('What-the-QR-code-says','Embedded in the QR code is the revelation that the perpetrator is fond of soda. Lay out a can'
                             ' as bait and catch him! </p>','Lay-out-the-bait')
-set_bait = seek.FindObjectModule('Lay-out-the-bait', 'Whodunnit', 'drink')
-whodunnit = seek.TextInputModule('Whodunnit','end','Cole')
+whodunnit = seek.TextInputModule('Lay-out-the-bait','end','Cole')
 
 print start
 print find_info
 print QR
 print picture_info
-print set_bait
 print whodunnit
 seek.save_module_data()
