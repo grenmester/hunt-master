@@ -1,8 +1,9 @@
 from __future__ import division
 import numpy as np
 import cv2
-import time
+import time, io
 from matplotlib import pyplot as plt
+from google.cloud import vision
 
 MIN_MATCH_COUNT = 200
 # only using match count right now
@@ -38,3 +39,26 @@ def compare(img1_name, img2_name):
             num_good_matches += 1
     print('Number of good features matched: ' + str(num_good_matches))
     return num_good_matches>MIN_MATCH_COUNT
+
+def features(img_path,labels=True,logos=True,landmarks=True):
+    """
+    Returns a list of features from an image
+
+    Optionally pass a certainty_threshold value to give a threshold in [0,1] on how certain
+    Google's identification is.
+    """
+    v_c = vision.Client()
+    with io.open(img_path, 'rb') as image_file:
+        content = image_file.read()
+    img = v_c.image(content=content)
+    output = []
+    if labels:
+       labels = [label.description for label in img.detect_labels()]
+       output += labels
+    if logos:
+       logos = [logo.description for logo in img.detect_logos()]
+       output += logos
+    if landmarks:
+       landmarks = [landmark.description for landmark in img.detect_landmarks()]
+       output += landmarks
+    return output
