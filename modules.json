@@ -1,1 +1,1 @@
-{"start": ["/content/start", "/content/test1", ["<p> HI!</p>"]], "test1": ["/content/test1", "/content/test1", ["<p>BYE!</p>"]]}
+{"test1": ["/content/test1", "/gps/showersuite", {"html": "<p>BYE!</p>"}], "start": ["/content/start", "/content/test1", {"html": "<p> HI!</p>"}], "end": ["/content/end", "/content/end", {"html": "<p>Done!</p>"}], "showersuite": ["/gps/showersuite", "/content/end", ["1.775", "2.7775"]]}
