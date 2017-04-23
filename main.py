@@ -68,11 +68,23 @@ def allowed_file(filename):
 def upload():
     file = request.files['file']
     module = request.form['module']
-    print(module)
+
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('uploaded_file', filename = filename))
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+        file.save(filepath)
+
+        module_url = layout[module]['url']
+        module_type = module_url.split('/')[-2]
+        
+        import image
+        
+        if module_type == "match":
+            if image.compare(filename, layout[module]["data"]["image_filename"]):
+                return redirect(layout[module]['target'], code=302)
+        elif module_type == "find":
+            if image.has_features(filepath, layout[module]["data"]["object_name"]):
+                return redirect(layout[module]['target'], code=302)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
