@@ -7,7 +7,8 @@ with open('modules.json', 'r') as fp:
     layout = json.load(fp)
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'gif'])
+app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'JPG', 'jpeg', 'gif'])
+app.config['CACHE_TYPE'] = 'null'
 
 #### App Routes
 
@@ -93,13 +94,23 @@ def upload():
 
         import image
         if module_type == "match":
-            image_filename = request.form['image_filename']
-            if image.compare(filename, image_filename):
+            image_filename = request.form['image_filename'].strip('/')
+            print(filepath, image_filename)
+            if image.compare(filepath, image_filename):
                 return redirect(target, code=302)
+            else:
+                return redirect(url, code=302)
         elif module_type == "find":
             object_name = request.form['object_name']
-            if image.has_features(filepath, object_name):
+            print(object_name, type(object_name))
+            if image.has_features(filepath, [object_name]):
                 return redirect(target, code=302)
+            else:
+                return redirect(url, code=302)
+        else:
+            print(module_type)
+            return 'Failed to upload'
+    return 'Invalid filename'
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

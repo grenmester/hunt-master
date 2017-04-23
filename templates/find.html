@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/navbar-fixed-top.css" rel="stylesheet">
+
     <head>
         <title>{{ title }}</title>
     </head>
     <body>
-        <p>Please look for {{ data.object_name }}.</p>
-        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*">
-            <input type="submit" value="Upload">
-            <input type="hidden" name="object_name" value={{ data.object_name }}>
-            <input type="hidden" name="target" value={{ target }}>
-            <input type="hidden" name="url" value={{ url }}>
-        </form>
-        <a href={{ target }} class="button">Continue</a>
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">HuntMaster</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="https://github.com/Owen-Gillespie/HuntMaster">GitHub</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+
+        <!-- Main component for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <p>Please look for a {{ data.object_name }}.</p>
+                <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" accept="image/*">
+                    <input type="submit" class="btn btn-default" value="Upload">
+                    <input type="hidden" name="object_name" value={{ data.object_name }}>
+                    <input type="hidden" name="target" value={{ target }}>
+                    <input type="hidden" name="url" value={{ url }}>
+                </form>
+            </div>
+
+        </div> <!-- /container -->
     </body>
 </html>
