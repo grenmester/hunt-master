@@ -62,7 +62,11 @@ class ImageMatchModule(InteractiveModule):
 	def __init__(self, name, link_to, image_filename):
 		super(ImageMatchModule, self).__init__(name, link_to, "match", {"image_filename": image_filename})
 		
+class TextInputModule(InteractiveModule):
 
+	def __init__(self, name, link_to, correct_string):
+		super(TextInputModule, self).__init__(name, link_to, "text", {"correct_string": correct_string})
+		
 def save_module_data(filename = "modules.json"):
 	url_module_data = {}
 	for module_name in module_data:
