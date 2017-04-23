@@ -1,1 +1,1 @@
-{"test1": ["/content/test1", "<p> BYE!</p>"], "start": ["/content/start", "<p> HI!</p>"]}
+{"start": ["/content/start", "/content/test1", ["<p> HI!</p>"]], "test1": ["/content/test1", "/content/test1", ["<p>BYE!</p>"]]}

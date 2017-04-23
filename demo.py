@@ -1,7 +1,6 @@
 import seek
 
-start = seek.ContentModule("start", "<p> HI!</p>", "test1")
-test1 = seek.ContentModule("test1", "<p> BYE!</p>", "test1")
+start = seek.StartModule("<p> HI!</p>", "test1")
+test1 = seek.TextModule('test1', "test1", "BYE!")
 
-seek.save_state_graph()
 seek.save_module_data()
