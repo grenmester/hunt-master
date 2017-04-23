@@ -13,11 +13,7 @@ app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'gif'])
 
 @app.route('/')
 def main():
-    return redirect('start', code=302)
-
-@app.route('/start/')
-def start():
-    return render_template('start.html', start_link = layout['start']['target'])
+    return redirect('content/start/', code=302)
 
 @app.route('/content/<module>/')
 def get_content_module(module):
