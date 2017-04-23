@@ -1,3 +1,4 @@
+
 import json
 
 module_names = set() # Ensures that module names are unique.  "start" and "end" are reserved.
@@ -55,7 +56,8 @@ class GPSModule(InteractiveModule):
 
 class FindObjectModule(InteractiveModule):
 	def __init__(self, name, link_to, object_name):
-		super(FindObjectModule, self).__init__(name, link_to, "find", {"object_name": object_name})
+		# assert(type(object_name) == type([1]))
+                super(FindObjectModule, self).__init__(name, link_to, "find", {"object_name": object_name})
 
 class ImageMatchModule(InteractiveModule):
 

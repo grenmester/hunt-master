@@ -5,6 +5,13 @@
     </head>
     <body>
         <p>Please look for {{ data.object_name }}.</p>
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <input type="submit" value="Upload">
+            <input type="hidden" name="object_name" value={{ data.object_name }}>
+            <input type="hidden" name="target" value={{ target }}>
+            <input type="hidden" name="url" value={{ url }}>
+        </form>
         <a href={{ target }} class="button">Continue</a>
     </body>
 </html>
