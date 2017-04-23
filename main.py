@@ -7,9 +7,9 @@ with open("modules.json", 'r') as fp:
 
 @app.route('/')
 def main():
-    return redirect("content/start/", code=302)
+    return redirect("start/", code=302)
 
-@app.route('/content/start/')
+@app.route('/start/')
 def start():
     return render_template("start.html", start_link = layout["start"]["target"])
 
@@ -20,7 +20,7 @@ def get_content_module(module):
             data = layout[module]["data"],
             target = layout[module]["target"])
 
-@app.route('/content/end/')
+@app.route('/end/')
 def end():
     return render_template("end.html")
 
