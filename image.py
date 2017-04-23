@@ -4,10 +4,17 @@ import cv2
 import time, io
 from matplotlib import pyplot as plt
 from google.cloud import vision
+from google.cloud.vision.feature import Feature,FeatureTypes
 
 MIN_MATCH_COUNT = 200
 # only using match count right now
 MIN_MATCH_RATIO = .2
+
+NUM_LABELS = 20
+NUM_LANDMARKS = 3
+NUM_LOGOS = 3
+
+MIN_SCORE = .5
 
 def compare(img1_name, img2_name):
     """
@@ -40,7 +47,7 @@ def compare(img1_name, img2_name):
     print('Number of good features matched: ' + str(num_good_matches))
     return num_good_matches>MIN_MATCH_COUNT
 
-def get_features(img_path,labels=True,logos=True,landmarks=True):
+def get_features(img_path):
     """
     Returns a list of features from an image
 
@@ -52,15 +59,19 @@ def get_features(img_path,labels=True,logos=True,landmarks=True):
         content = image_file.read()
     img = v_c.image(content=content)
     output = []
-    if labels:
-       labels = [label.description.encode('utf-8') for label in img.detect_labels()]
-       output += labels
-    if logos:
-       logos = [logo.description.encode('utf-8') for logo in img.detect_logos()]
-       output += logos
-    if landmarks:
-       landmarks = [landmark.description.encode('utf-8') for landmark in img.detect_landmarks()]
-       output += landmarks
+    features = [Feature(FeatureTypes.LABEL_DETECTION, NUM_LABELS),
+                Feature(FeatureTypes.LANDMARK_DETECTION, NUM_LANDMARKS),
+                Feature(FeatureTypes.LOGO_DETECTION, NUM_LOGOS)]
+    annotations = img.detect(features)
+    for label in annotations[0].labels:
+        if label.score >= MIN_SCORE:
+            output.append(label.description.encode('utf-8'))
+    for landmark in annotations[0].landmarks:
+        if landmark.score >= MIN_SCORE:
+            output.append(landmark.description.encode('utf-8'))
+    for logo in annotations[0].logos:
+        if logo.score >= MIN_SCORE:
+            output.append(logo.description.encode('utf-8'))
     return output
 
 def has_features(img_path, features):
