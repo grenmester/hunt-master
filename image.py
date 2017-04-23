@@ -40,7 +40,7 @@ def compare(img1_name, img2_name):
     print('Number of good features matched: ' + str(num_good_matches))
     return num_good_matches>MIN_MATCH_COUNT
 
-def features(img_path,labels=True,logos=True,landmarks=True):
+def get_features(img_path,labels=True,logos=True,landmarks=True):
     """
     Returns a list of features from an image
 
@@ -53,12 +53,20 @@ def features(img_path,labels=True,logos=True,landmarks=True):
     img = v_c.image(content=content)
     output = []
     if labels:
-       labels = [label.description for label in img.detect_labels()]
+       labels = [label.description.encode('utf-8') for label in img.detect_labels()]
        output += labels
     if logos:
-       logos = [logo.description for logo in img.detect_logos()]
+       logos = [logo.description.encode('utf-8') for logo in img.detect_logos()]
        output += logos
     if landmarks:
-       landmarks = [landmark.description for landmark in img.detect_landmarks()]
+       landmarks = [landmark.description.encode('utf-8') for landmark in img.detect_landmarks()]
        output += landmarks
     return output
+
+def has_features(img_path,*features):
+    """
+    Returns whether or not features are in the image provided.
+    """
+    f = get_features(img_path)
+    return set(features).issubset(f)
+
