@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <!-- Bootstrap core CSS -->
         <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+        <link rel="icon" href="/static/img/favicon.png">
         <!-- Custom styles for this template -->
         <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
         <title>{{ title }}</title>
     </head>
     <body>
-
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -20,7 +18,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#">HuntMaster</a>
+                  <!-- <a class="navbar-brand" href="#">HuntMaster</a> -->
+                  <a href="#" class="navbar-left"><img src="/static/img/huntmaster.png" height="70" width="100"></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -32,7 +31,6 @@
             </div>
         </nav>
         <div class="container">
-
         <!-- Main component for a primary marketing message or call to action -->
             <div class="jumbotron">
                 <p>Please look for a {{ data.object_name }}.</p>
@@ -46,7 +44,6 @@
                     <input type="hidden" name="url" value={{ url }}>
                 </form>
             </div>
-
         </div> <!-- /container -->
     </body>
 </html>
