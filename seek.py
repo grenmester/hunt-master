@@ -40,7 +40,7 @@ class QRModule(Module):
 		self.url = r"/qr/" + self.name
 		module_data[self.name] = {"url": self.url, "target": link_to, "data": {"html": html_body}}
 		import qr
-                qr.make_qr(self.name + "_qr.png", root + '/' + self.link_to + '/')
+                qr.make_qr("/qr/" + self.name + "_qr.png", root + '/' + self.link_to + '/')
 
 class InteractiveModule(Module):
 	def __init__(self, name, link_to, module_type, extra_data_dict):
