@@ -63,10 +63,13 @@ def get_features(img_path,labels=True,logos=True,landmarks=True):
        output += landmarks
     return output
 
-def has_features(img_path,*features):
+def has_features(img_path, features):
     """
     Returns whether or not features are in the image provided.
     """
     f = get_features(img_path)
-    return set(features).issubset(f)
+    for feature in features:
+        if feature in f:
+            return True
+    return False
 
