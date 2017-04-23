@@ -46,7 +46,7 @@ class InteractiveModule(Module):
 
 class GPSModule(InteractiveModule):
 	def __init__(self, name, link_to, x_coordinate, y_coordinate):
-		super(GPSModule, self).__init__(name, link_to, "gps", (x_coordinate, y_coordinate))
+		super(GPSModule, self).__init__(name, link_to, "gps", {"x_coordinate": x_coordinate, "y_coordinate": y_coordinate})
 
 class FindObjectModule(InteractiveModule):
 	def __init__(self, name, link_to, object_name):
