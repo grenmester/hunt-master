@@ -93,7 +93,6 @@ def upload():
         module_type = url.split('/')[-2]
 
         import image
-
         if module_type == "match":
             image_filename = request.form['image_filename'].strip('/')
             print(filepath, image_filename)
@@ -116,6 +115,21 @@ def upload():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/within/', methods=['POST'])
+def within():
+    x_coordinate = float(request.form['x_coordinate'])
+    y_coordinate = float(request.form['y_coordinate'])
+    latitude = float(request.form['latitude'])
+    longitude = float(request.form['longitude'])
+    target = request.form['target']
+    url = request.form['url']
+
+    import gps
+    print(gps.distance_between((x_coordinate, y_coordinate), (latitude, longitude)))
+    if gps.within_radius((x_coordinate, y_coordinate), (latitude, longitude), 20):
+        return redirect(target, code=302)
+    return redirect(url, code=302)
 
 @app.route('/verify/', methods=['POST'])
 def verify():
