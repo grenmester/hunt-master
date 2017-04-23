@@ -59,7 +59,7 @@ class ImageMatchModule(InteractiveModule):
 		
 
 def save_module_data(filename = "modules.json"):
-	EndModule("end", "<p>Done!</p>")
+	EndModule("end", "")
 	url_module_data = {}
 	for module_name in module_data:
 
