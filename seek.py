@@ -33,10 +33,6 @@ class StartModule(ContentModule):
 	def __init__(self, html_body, link_to):
 		super(StartModule, self).__init__("start", html_body, link_to) #TODO switch to subclassing Module and change server code
 
-class EndModule(ContentModule): 
-	def __init__(self, name, html_body):
-		super(EndModule, self).__init__(name, html_body, "end") #TODO switch to subclassing Module and change server code
-
 class QRModule(Module):
 	def __init__(self, name, html_body, link_to):
 		super(QRModule, self).__init__(name, link_to)
@@ -66,14 +62,15 @@ class ImageMatchModule(InteractiveModule):
 		
 
 def save_module_data(filename = "modules.json"):
-	EndModule("end", " ")
 	url_module_data = {}
 	for module_name in module_data:
 
 		module_info = module_data[module_name]
-		print module_info 
 		target_name = module_info["target"]
-		target_url = module_data[target_name]["url"]
+		if target_name == "end":
+			target_url = "/end/"
+		else:
+			target_url = module_data[target_name]["url"]
 		url_module_data[module_name] = {"url": module_info["url"], "target": target_url, "data": module_info["data"]}
 
 	with open(filename, 'w') as fp:
