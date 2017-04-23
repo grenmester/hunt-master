@@ -21,10 +21,31 @@ def start():
 
 @app.route('/content/<module>/')
 def get_content_module(module):
-    return render_template("content.html",
-            title = module,
-            data = layout[module]["data"],
-            target = layout[module]["target"])
+    return render_template('content.html',
+                           title = module,
+                           data = layout[module]['data'],
+                           target = layout[module]['target'])
+
+@app.route('/gps/<module>/')
+def get_gps_module(module):
+    return render_template('gps.html',
+                           title = module,
+                           data = layout[module]['data'],
+                           target = layout[module]['target'])
+
+@app.route('/find/<module>/')
+def get_find_module(module):
+    return render_template('find.html',
+                           title = module,
+                           data = layout[module]['data'],
+                           target = layout[module]['target'])
+
+@app.route('/match/<module>/')
+def get_match_module(module):
+    return render_template('match.html',
+                           title = module,
+                           data = layout[module]['data'],
+                           target = layout[module]['target'])
 
 @app.route('/end/')
 def end():
