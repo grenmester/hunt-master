@@ -13,15 +13,15 @@ content
 -------
 **html:** A string containing the html for the page.
 
+find
+----
+**object_name:** The name of the object being looked for in the picture.
+
 gps
 ---
 **x_coordinate:** The x-coordinate of the trigger location.
 
 **y_coordinate:** The y-coordinate of the trigger location.
-
-find
-----
-**object_name:** The name of the object being looked for in the picture.
 
 match
 -----
