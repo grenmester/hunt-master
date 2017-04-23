@@ -17,3 +17,7 @@ find
 match
 -----
 **image_filename:** the filename of the image that the user is trying to match with their uploaded image.
+
+qr
+--
+**html:** A string containing the html for the page

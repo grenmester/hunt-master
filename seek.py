@@ -31,11 +31,18 @@ class TextModule(ContentModule):
 
 class StartModule(ContentModule):
 	def __init__(self, html_body, link_to):
-		super(StartModule, self).__init__("start", html_body, link_to)
+		super(StartModule, self).__init__("start", html_body, link_to) #TODO switch to subclassing Module and change server code
 
-class EndModule(ContentModule):
+class EndModule(ContentModule): 
 	def __init__(self, name, html_body):
-		super(EndModule, self).__init__(name, html_body, "end")
+		super(EndModule, self).__init__(name, html_body, "end") #TODO switch to subclassing Module and change server code
+
+class QRModule(Module):
+	def __init__(self, name, html_body, link_to):
+		super(QRModule, self).__init__(name, link_to)
+		self.html_body = html_body
+		self.url = "/url/" + self.name
+		module_data[self.name] = {"url": self.url, "target": link_to, "data": {"html": html_body}}
 
 class InteractiveModule(Module):
 	def __init__(self, name, link_to, module_type, extra_data_dict):
@@ -59,11 +66,12 @@ class ImageMatchModule(InteractiveModule):
 		
 
 def save_module_data(filename = "modules.json"):
-	EndModule("end", "")
+	EndModule("end", " ")
 	url_module_data = {}
 	for module_name in module_data:
 
 		module_info = module_data[module_name]
+		print module_info 
 		target_name = module_info["target"]
 		target_url = module_data[target_name]["url"]
 		url_module_data[module_name] = {"url": module_info["url"], "target": target_url, "data": module_info["data"]}
