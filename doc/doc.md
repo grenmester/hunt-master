@@ -30,3 +30,7 @@ match
 qr
 --
 **html:** A string containing the html for the page.
+
+text
+----
+**correct_string:** The string that must be entered into the text box to continue
