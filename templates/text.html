@@ -4,7 +4,6 @@
         <title>{{ title }}</title>
     </head>
     <body>
-        <p>This is the url: {{ url }}</p>
         <form action="{{ url_for('verify') }}" method="post">
             <input type="text" name="text">
             <input type="submit" value="Submit">
