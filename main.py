@@ -20,35 +20,48 @@ def get_content_module(module):
     return render_template('content.html',
                            title = module,
                            data = layout[module]['data'],
-                           target = layout[module]['target'])
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
 
 @app.route('/find/<module>/')
 def get_find_module(module):
     return render_template('find.html',
                            title = module,
                            data = layout[module]['data'],
-                           target = layout[module]['target'])
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
 
 @app.route('/gps/<module>/')
 def get_gps_module(module):
     return render_template('gps.html',
                            title = module,
                            data = layout[module]['data'],
-                           target = layout[module]['target'])
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
 
 @app.route('/match/<module>/')
 def get_match_module(module):
     return render_template('match.html',
                            title = module,
                            data = layout[module]['data'],
-                           target = layout[module]['target'])
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
 
 @app.route('/qr/<module>/')
 def get_qr_module(module):
     return render_template('qr.html',
                            title = module,
                            data = layout[module]['data'],
-                           target = layout[module]['target'])
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
+
+@app.route('/text/<module>/')
+def get_text_module(module):
+    return render_template('text.html',
+                           title = module,
+                           data = layout[module]['data'],
+                           target = layout[module]['target'],
+                           url = layout[module]['url'])
 
 @app.route('/end/')
 def end():
@@ -68,7 +81,6 @@ def allowed_file(filename):
 def upload():
     file = request.files['file']
     module = request.form['module']
-    print(module)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -77,6 +89,16 @@ def upload():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/verify/', methods=['POST'])
+def verify():
+    text = request.form['text']
+    correct_string = request.form['correct_string']
+    target = request.form['target']
+    url = request.form['url']
+    if text == correct_string:
+        return redirect(target, code=302)
+    return redirect(url, code=302)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <p>This is the url: {{ url }}</p>
+        <form action="{{ url_for('verify') }}" method="post">
+            <input type="text" name="text">
+            <input type="submit" value="Submit">
+            <input type="hidden" name="correct_string" value={{ data.correct_string }}>
+            <input type="hidden" name="target" value={{ target }}>
+            <input type="hidden" name="url" value={{ url }}>
+        </form>
+    </body>
+</html>
