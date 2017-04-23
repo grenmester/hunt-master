@@ -1,9 +1,9 @@
 import json
 
-module_names = set()
+module_names = set() # Ensures that module names are unique.  "start" and "end" are reserved.
 module_data = {}
 
-class Module:
+class Module(object):
 
 	def __init__(self, name, link_to):
 		if name not in module_names:
@@ -14,41 +14,52 @@ class Module:
 		self.link_to = link_to
 
 	def __repr__(self):
-		return self.name + " page targeting" + self.link_to
+		return self.name + " page targeting: " + self.link_to
 
 class ContentModule(Module):
 
-	def __init__(self,name, html_body, link_to):
-		super().__init__(name, link_to)
+	def __init__(self, name, html_body, link_to):
+		super(ContentModule, self).__init__(name, link_to)
 		self.html_body = html_body
-		self.link_to = link_to
 		self.url = "/content/" + self.name
 		module_data[self.name] = (self.url, self.link_to, (html_body,))
 
 class TextModule(ContentModule):
 	def __init__(self, name, link_to, text):
 		html_body = "<p>" + text + "</p>"
-		super().__init__(name, html_body, link_to)
+		super(TextModule, self).__init__(name, html_body, link_to)
 
 class StartModule(ContentModule):
 	def __init__(self, html_body, link_to):
-		super().__init__("start", html_body, link_to)
+		super(StartModule, self).__init__("start", html_body, link_to)
 
+class EndModule(ContentModule):
+	def __init__(self, name, html_body):
+		super(EndModule, self).__init__(name, html_body, "end")
 
-# def save_state_graph(filename = "state.json"):
-# 	url_state_graph = {}
-# 	for module_name in state_graph:
+class InteractiveModule(Module):
+	def __init__(self, name, link_to, module_type, extra_data):
+		super(InteractiveModule, self).__init__(name, link_to)
+		# self.module_type = module_type #Do we need this?
+		self.url = "/" + module_type + "/" + self.name
+		module_data[self.name] = (self.url, self.link_to, extra_data)
 
-# 		module_url = module_data[module_name][0]
-# 		target_module = state_graph[module_name]
-# 		target_url = module_data[target_module][0]
+class GPSModule(InteractiveModule):
+	def __init__(self, name, link_to, x_coordinate, y_coordinate):
+		super(GPSModule, self).__init__(name, link_to, "gps", (x_coordinate, y_coordinate))
 
-# 		url_state_graph[module_url] = target_url		
+class FindObjectModule(InteractiveModule):
+	def __init__(self, name, link_to, object_name):
+		super(FindObjectModule, self).__init__(name, link_to, "find", (object_name,))
 
-# 	with open(filename, 'w') as fp:
-# 		json.dump(url_state_graph, fp)
+class ImageMatchModule(InteractiveModule):
+
+	def __init__(self, name, link_to, image_filename):
+		super(ImageMatchModule, self).__init__(name, link_to, "match", (image_filename,))
+		
 
 def save_module_data(filename = "modules.json"):
+	EndModule("end", "<p>Done!</p>")
 	url_module_data = {}
 	for module_name in module_data:
 
