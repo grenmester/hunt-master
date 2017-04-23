@@ -1,5 +1,5 @@
 import seek
-DOMAIN = "huntmaster.org"
+DOMAIN = "seek-165508.appspot.com"
 info_lat = 33.781310999999995
 info_long = -118.1131253
 bicycle_image = '/static/img/bicycle_image.JPG'
