@@ -14,7 +14,7 @@ NUM_LABELS = 20
 NUM_LANDMARKS = 3
 NUM_LOGOS = 3
 
-MIN_SCORE = .5
+MIN_SCORE = 0
 
 def compare(img1_name, img2_name):
     """

@@ -36,7 +36,8 @@ each API seemed to have its own difficulties (OpenCV was by far the most arduous
 we were much more comfortable delving into the mathematics of GPS calculations or reading research papers on OpenCV than we were figuring out how to make our demo look nice.
 
 ## Accomplishments that we're proud of
-Though HuntMaster is a minimum viable product, a lot of its functionalities are more than minimally sufficient. 
+Though HuntMaster is a minimum viable product, a lot of its functionalities are more than minimally sufficient. We're very proud with the level of polish we've been able
+to give HuntMaster while still making sure it is rife with high-tech features. 
 
 ## What we learned
 We've learned many things at BeachHacks. We learned how to architect a framework, design a web app, and many, many APIs. 
