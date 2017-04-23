@@ -7,3 +7,5 @@ def make_qr(path,s):
     """
     img = qrcode.make(s)
     img.save(path)
+    print('Path: ' + path)
+    print('Message: ' + s)
