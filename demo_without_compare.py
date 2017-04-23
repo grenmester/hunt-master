@@ -9,7 +9,7 @@ start = seek.StartModule(('<p> Somebody on the HuntMaster team has pushed the re
                             'Find-the-info-center')
 find_info = seek.GPSModule('Find-the-info-center','At-the-info-center',info_lat,info_long)
 QR = seek.QRModule('At-the-info-center', ('<p> As you arrive at the information center, you see a suspicious figure leaving the scene. Before you attempt to apprehend the figure,'
-                           ' you notice a QR code...</p>'),'What-the-QR-code-says',DOMAIN)
+                           ' you notice a QR code...</p>'),'What-the-QR-code-says','content', DOMAIN)
 picture_info = seek.ContentModule('What-the-QR-code-says','Embedded in the QR code is the revelation that the perpetrator is fond of soda. Lay out a can'
                             ' as bait and catch him! </p>','Lay-out-the-bait')
 set_bait = seek.FindObjectModule('Lay-out-the-bait', 'Whodunnit', 'drink')

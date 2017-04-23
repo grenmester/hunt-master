@@ -35,13 +35,13 @@ class StartModule(ContentModule):
 		super(StartModule, self).__init__("start", html_body, link_to) #TODO switch to subclassing Module and change server code
 
 class QRModule(Module):
-	def __init__(self, name, html_body, link_to, root):
+	def __init__(self, name, html_body, link_to,target_type, root):
 		super(QRModule, self).__init__(name, link_to)
                 self.html_body = html_body
 		self.url = r"/qr/" + self.name
 		module_data[self.name] = {"url": self.url, "target": link_to, "data": {"html": html_body}}
 		import qr
-                qr.make_qr("qr/" + self.name + "_qr.png", root + '/' + self.link_to + '/')
+                qr.make_qr("qr/" + self.name + "_qr.png", root + '/' + target_type + '/' + self.link_to + '/')
 
 class InteractiveModule(Module):
 	def __init__(self, name, link_to, module_type, extra_data_dict):

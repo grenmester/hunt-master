@@ -1,8 +1,8 @@
 from __future__ import division
 import numpy as np
-import cv2
+# import cv2
 import time, io
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 from google.cloud import vision
 from google.cloud.vision.feature import Feature,FeatureTypes
 
