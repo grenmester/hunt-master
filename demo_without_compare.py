@@ -1,7 +1,7 @@
 import seek
 DOMAIN = "seek-165508.appspot.com"
-info_lat = 33.781310999999995
-info_long = -118.1131253
+info_lat = 33.78130180915361
+info_long = -118.11316083436564
 bicycle_image = '/static/img/bicycle_image.JPG'
 
 start = seek.StartModule(('<p> Somebody on the HuntMaster team has pushed the results of this abomination </p>'
