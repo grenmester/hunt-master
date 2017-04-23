@@ -1,21 +1,35 @@
+import json
 
 state_graph = {}
+module_names = set()
+module_data = {}
 
-module_graph = {}
+class Module:
 
-class Page(Object):
-
-	def __init__(self, name):
-		self.name = name
+	def __init__(self, name, link_to):
+		if name not in page_names:
+			self.name = name
+		else:
+			raise Exception("A module with this name already exists."\
+				"Please use a unique name for the module")
+		self.link_to = link_to
+		state_graph[self.name] = self.link_to
 
 	def __repr__(self):
 		return self.name + " page"
 
-class ContentPage(Page):
+class ContentModule(Module):
 
 	def __init__(self,name, html_body, link_to):
-		super().__init__(name)
+		super().__init__(name, link_to)
 		self.html_body = html_body
 		self.link_to = link_to
+		module_data[self.name] = (html_body,)
 
+def save_state_graph(filename = "state.json"):
+	with open(filename, 'w') as fp:
+		json.dump(state_graph, fp)
 
+def save_module_data(filename = "modules.json"):
+	with open(filename, 'w') as fp:
+		json.dump(module_data, fp)
