@@ -7,7 +7,7 @@ module_data = {}
 class Module:
 
 	def __init__(self, name, link_to):
-		if name not in page_names:
+		if name not in module_names:
 			self.name = name
 		else:
 			raise Exception("A module with this name already exists."\
@@ -21,7 +21,7 @@ class Module:
 class ContentModule(Module):
 
 	def __init__(self,name, html_body, link_to):
-		super().__init__(name, link_to)
+		super().__init__("/content/" + name, link_to)
 		self.html_body = html_body
 		self.link_to = link_to
 		module_data[self.name] = (html_body,)
