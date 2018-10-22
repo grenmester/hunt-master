@@ -92,7 +92,7 @@ def upload():
         module_url = url.split('/')[-1]
         module_type = url.split('/')[-2]
 
-        import image
+        import modules.image as image
         if module_type == "match":
             image_filename = request.form['image_filename'].strip('/')
             print(filepath, image_filename)
@@ -118,14 +118,21 @@ def uploaded_file(filename):
 
 @app.route('/within/', methods=['POST'])
 def within():
+    import modules.gps as gps
+
     x_coordinate = float(request.form['x_coordinate'])
     y_coordinate = float(request.form['y_coordinate'])
-    latitude = float(request.form['latitude'])
-    longitude = float(request.form['longitude'])
-    target = request.form['target']
+    lat_str = request.form['latitude']
+    long_str = request.form['longitude']
     url = request.form['url']
+    target = request.form['target']
 
-    import gps
+    if not lat_str or not long_str:
+        return redirect(url, code=302)
+
+    latitude = float(lat_str)
+    longitude = float(long_str)
+
     print(gps.distance_between((x_coordinate, y_coordinate), (latitude, longitude)))
     if gps.within_radius((x_coordinate, y_coordinate), (latitude, longitude), 20):
         return redirect(target, code=302)

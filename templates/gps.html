@@ -33,11 +33,12 @@
         <div class="container">
         <!-- Main component for a primary marketing message or call to action -->
             <div class="jumbotron">
-                <p>Retrieving the location might take up to 10 seconds.</p>
-                <p>The x-coordinate is {{ data.x_coordinate }}</p>
-                <p>The y-coordinate is {{ data.y_coordinate }}</p>
+                <p>Submit your location once you are within 20 meters to progress</p>
+                <p>Your goal latitude is {{ data.x_coordinate }}</p>
+                <p>Your goal longitude is {{ data.y_coordinate }}</p>
                 <p id="lat"></p>
                 <p id="lon"></p>
+                <p id="dist"></p>
                 <button type="button" onclick="getLocation()">Get Location</button>
                 <form action="{{ url_for('within') }}" method="post">
                     <input type="submit" class="btn btn-default" value="Submit Location">
@@ -51,8 +52,9 @@
             </div>
         </div> <!-- /container -->
         <script>
-            var lat = document.getElementById("lat")
-            var lon = document.getElementById("lon")
+            var lat = document.getElementById("lat");
+            var lon = document.getElementById("lon");
+            var dist = document.getElementById("dist");
 
             function getLocation() {
                 if (navigator.geolocation) {
@@ -62,11 +64,34 @@
                 }
             }
 
-            function setPosition(position) {
-                lat.innerHTML = "Latitude: " + position.coords.latitude
-                lon.innerHTML = "Longitude: " + position.coords.longitude
+         function setPosition(position) {
+                lat.innerHTML = "Your current Latitude: " + position.coords.latitude
+                lon.innerHTML = "Your current Longitude: " + position.coords.longitude
                 document.getElementById("latitude").setAttribute("value", position.coords.latitude)
                 document.getElementById("longitude").setAttribute("value", position.coords.longitude)
+             var meters = distance({{data.x_coordinate}}, {{data.y_coordinate}}, position.coords.latitude, position.coords.longitude, "m").toFixed(1);
+                dist.innerHTML = "You are currently " + meters + " meters from your desination";
+             if (meters <= {{data.radius}}) {
+
+            }
+
+         // Unit "M" for miles, "m" for meters, K" for km, "N" for naut. miles
+            function distance(lat1, lon1, lat2, lon2, unit) {
+                var radlat1 = Math.PI * lat1/180
+                var radlat2 = Math.PI * lat2/180
+                var theta = lon1-lon2
+                var radtheta = Math.PI * theta/180
+                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                if (dist > 1) {
+                dist = 1;
+                }
+                dist = Math.acos(dist)
+                dist = dist * 180/Math.PI
+                dist = dist * 60 * 1.1515
+                if (unit=="m") { dist = dist * 1000 * 1.609344 }
+                if (unit=="K") { dist = dist * 1.609344 }
+                if (unit=="N") { dist = dist * 0.8684 }
+                return dist
             }
 
             function showError(error) {
